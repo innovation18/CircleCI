@@ -45,7 +45,7 @@ jobs:
       - run:
           command: |
             echo 'This Job is using python image'
-            python --version  > python-version.txt
+            python --version  > ~/python-version.txt
       - persist_to_workspace:
           root: ~/
           paths: python-version.txt
@@ -56,7 +56,7 @@ jobs:
       - checkout
       - attach_woskspace:
           at: ~/
-      - run cat python-version.txt
+      - run: cat python-version.txt
 
 workflows:
   say-workflow:
