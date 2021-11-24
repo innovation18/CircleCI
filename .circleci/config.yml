@@ -1,5 +1,16 @@
 version: 2.1
 
+#Commands works just like a function...
+commands:
+  greeting:
+    description: this key is optional
+    parameters:
+      name:
+        default: "nana"
+        type: string
+    steps:
+      - run: echo "Hello << parameters.name >> "
+
 jobs:
   say-hello:
     docker:
@@ -12,14 +23,25 @@ jobs:
           name: "Say-Hello"
           # The initial pipe, |, indicates that there will be more than one line of shell commands.
           command: |
-            echo 'Hello!'
+            echo 'Hey Hello!'
             echo 'Hows it going!'
       - run:
           command: |
             ls -al
-            echo 'here it is!'
+            echo 'All Good!'
+
+  respond-to-hello:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - greeting:
+          name: "Henna"
 
 workflows:
   say-workflow:
     jobs:
       - say-hello
+      - respond-to-hello:
+          requires:
+            - say-hello
