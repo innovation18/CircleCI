@@ -20,6 +20,7 @@ executors:
       - image: cimg/python:3.10.0
 
 jobs:
+  #First - Job
   say-hello:
     executor: node-executor # node executor in use
     steps:
@@ -35,6 +36,7 @@ jobs:
             ls -al
             echo 'All Good!'
 
+  #Second Job
   respond-to-hello:
     executor: python-executor # python executor in use
     steps:
@@ -46,10 +48,12 @@ jobs:
           command: |
             echo 'This Job is using python image'
             python --version  > ~/python-version.txt
+        # Persisting data for next job
       - persist_to_workspace:
           root: ~/
           paths: python-version.txt
 
+  # Third Job
   print-python-version:
     executor: python-executor
     steps:
