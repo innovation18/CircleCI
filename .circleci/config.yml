@@ -8,4 +8,10 @@ jobs:
       - checkout
       - run:
           name: "Say-Hello"
-          command: echo 'Hello!'
+          command: |
+            echo 'Hello!'
+
+workflows:
+  say-workflow:
+    jobs:
+      -  say-hello
