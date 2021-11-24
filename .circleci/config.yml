@@ -5,7 +5,7 @@ commands:
   greeting:
     description: this key is optional
     parameters:
-      name:
+      guest-name:
         default: "nana"
         type: string
     steps:
@@ -36,7 +36,7 @@ jobs:
     steps:
       - checkout
       - greeting:
-          name: "Henna"
+          guest-name: "Henna"
 
 workflows:
   say-workflow:
