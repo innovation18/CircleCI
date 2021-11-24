@@ -48,7 +48,7 @@ jobs:
             python --version  > python-version.txt
       - persist_to_workspace:
           root: ~/
-          path: ~/python-version.txt
+          paths: python-version.txt
 
   print-python-version:
     executor: python-executor
@@ -65,3 +65,6 @@ workflows:
       - respond-to-hello:
           requires:
             - say-hello
+      - print-python-version:
+          requires:
+            - respond-to-hello
