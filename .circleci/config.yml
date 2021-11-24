@@ -12,8 +12,8 @@ jobs:
           name: "Say-Hello"
           # The initial pipe, |, indicates that there will be more than one line of shell commands.
           command: |
-            echo "Hello!""
-            echo "Hows it going!"
+            echo 'Hello!'
+            echo 'Hows it going!'
       - run:
           command: |
             ls -al
