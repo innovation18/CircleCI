@@ -9,7 +9,7 @@ commands:
         default: "nana"
         type: string
     steps:
-      - run: echo "Hello << parameters.name >> "
+      - run: echo "Hello << parameters.guest-name >> "
 
 jobs:
   say-hello:
