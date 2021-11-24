@@ -54,7 +54,7 @@ jobs:
     executor: python-executor
     steps:
       - checkout
-      - attach_woskspace:
+      - attach_workspace:
           at: ~/
       - run: cat python-version.txt
 
