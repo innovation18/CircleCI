@@ -11,15 +11,20 @@ commands:
     steps:
       - run: echo "Hello << parameters.guest-name >> "
 
+executors:
+  node-executor:
+    docker:
+      - image: circleci/node:13.8.0
+  python-executor:
+    docker:
+      - image: cimg/python:3.10.0
+
 jobs:
   say-hello:
-    docker:
-      - image: cimg/base:stable
+    executor: node-executor # node executor in use
     steps:
       - checkout
       - run:
-          #The name attribute provides useful organizational information when returning warnings, errors, and output.
-          #The name should be meaningful to you as an action within your build process
           name: "Say-Hello"
           # The initial pipe, |, indicates that there will be more than one line of shell commands.
           command: |
@@ -31,12 +36,16 @@ jobs:
             echo 'All Good!'
 
   respond-to-hello:
-    docker:
-      - image: cimg/base:stable
+    executor: python-executor # python executor in use
     steps:
       - checkout
+      #Command Use-Case
       - greeting:
           guest-name: "Henna"
+      - run:
+        command: |
+          echo 'This Job is using python image'
+          python --version      #TODO - Use this output for file sharing in next instance
 
 workflows:
   say-workflow:
