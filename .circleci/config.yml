@@ -43,9 +43,9 @@ jobs:
       - greeting:
           guest-name: "Henna"
       - run:
-        command: |
-          echo 'This Job is using python image'
-          python --version      #TODO - Use this output for file sharing in next instance
+          command: |
+            echo 'This Job is using python image'
+            python --version      #TODO - Use this output for file sharing in next instance
 
 workflows:
   say-workflow:
