@@ -45,7 +45,18 @@ jobs:
       - run:
           command: |
             echo 'This Job is using python image'
-            python --version      #TODO - Use this output for file sharing in next instance
+            python --version  > python-version.txt
+      - persist_to_workspace:
+          root: ~/
+          path: ~/python-version.txt
+
+  print-python-version:
+    executor: python-executor
+    steps:
+      - checkout
+      - attach_woskspace:
+          at: ~/
+      - run cat python-version.txt
 
 workflows:
   say-workflow:
