@@ -56,7 +56,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/
-      - run: cat python-version.txt
+      - run: cat ~/python-version.txt
 
 workflows:
   say-workflow:
