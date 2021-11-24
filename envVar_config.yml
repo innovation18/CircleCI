@@ -1,0 +1,19 @@
+version: 2.1
+
+commands:
+  print-pipeline-id:
+    description: "A very simple command to print pipeline id"
+    steps:
+      - run: echo ${CIRCLE_WORKFLOW_ID}
+
+jobs:
+  print-workflow-id:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - print-pipeline-id
+
+workflows:
+  print-workflow:
+    jobs:
+      - print-workflow-id

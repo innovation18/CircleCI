@@ -1,0 +1,64 @@
+version: 2.1
+
+jobs:
+  say_no:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: "Say No"
+          command: "echo 'Its a NO!'"
+  say-yes:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: "Say Yes"
+          command: |
+            echo 'Sorry! Its a YES!'
+            echo $name
+
+  save-output:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: "Save Output"
+          command: |
+            echo "Here Comes Output" > output.txt
+            mkdir -p /tmp/workspace
+            mv output.txt /tmp/workspace/
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - output.txt
+
+  take-output:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: "Save Output"
+          command: |
+            cat /tmp/workspace/output.txt
+
+workflows:
+  say-workflow:
+    jobs:
+      - say-no
+      - say-yes:
+          requires:
+            - say-no
+
+  persist-testing-workflow:
+    jobs:
+      - save-output
+      - take-output:
+          requires:
+            - save-output
